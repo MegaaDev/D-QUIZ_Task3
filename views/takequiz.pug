@@ -1,0 +1,91 @@
+extends base
+
+block content
+  .background-container
+    .nav
+      .nav-contents
+        .Logo
+          h1 D-Quiz
+        .search-box
+          input#quiz-search(type='text' placeholder='search for quizzes')
+          .click-to-search-quiz
+            img(src=`/images/search-quiz.png` alt='')
+          if user
+            if user.photo.startsWith("user") || user.photo.startsWith("default")
+              .user-photo
+                img(src=`/img/users/${user.photo}` alt='')
+            else if !user.photo.startsWith("user")
+              .user-photo
+                img(src=`${user.photo}` alt='')
+          else if !user   
+            .sign-up-home
+              p sign up
+    .central-container
+      .left-container-screen-take-quiz
+        .side-nav
+          ul
+            li.home Home
+            li.my-profile My Profile
+            li.create-quiz Create Quiz
+            li.people People
+            li.friends Friends
+            li.settings Settings
+      .middle-container-screen-question-take-quiz
+        .title-box
+          .title-box-name
+            h1= `${quiz.title}`
+          .temp-id 
+            p= quiz.id
+          .temp-question-id 
+            p= quiz.questions[0].id
+          .title-box-description
+            .title-box-difficulty
+              | Difficulty: 
+              if quiz.difficulty === 'easy'
+                span.easy-mode-text= quiz.difficulty
+              else if quiz.difficulty === 'medium'
+                span.medium-mode-text= quiz.difficulty
+
+              else if quiz.difficulty === 'difficult'
+                span.difficult-mode-text= quiz.difficulty
+
+              
+             
+            .description-quiz-box
+              | Description: &nbsp;
+              span.paragraph-description= quiz.description
+          .guidlines-quiz
+            .guidlines-text
+              h3 Quiz Guidlines
+            .guidlines-para
+              p
+                span Question Format
+                |  : Every questions will be a single correct multi choice question. Click the 
+                |                   Pale green button to lock your answer. You can change your answer if you want to.
+                |                   .
+                br
+                br
+                span Navigation
+                |  : There will be blocks of Snippets in the top right of your screen. Click the question number 
+                |    to navigate through questions and answer the question.
+                br
+                br
+                span Scoring
+                |  : A correct answer give 100 points, an incorrect answer gives you negative 20 points and if unattempted, you'll gain 0 points
+                br
+                br
+                span Abrupt exit
+                |  : Exciting the quiz in middle wont save your answers. You have to attempt the quiz from the first if your gonna take the quiz again
+                br
+                br
+                span Time Limit
+                |  : There is no timit limit. You can take years to attempt a quiz.
+                br
+                br
+                span Review and Submit
+                |  : You can review your answered questions. The attempted questions will be marked green, the unattempted questions will be marked grey.
+                |    Click the Submit Quiz button to submit your answers.
+          .take-quiz-button
+            .exit-quiz-click-button Exit
+            .take-quiz-click-button Take Quiz
+      .right-container-screen-question
